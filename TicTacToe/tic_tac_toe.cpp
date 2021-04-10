@@ -76,11 +76,6 @@ void crtField(Game& g)
 	cout << endl << "User piece: " << (char)g.user << endl << "AI piece: " << (char)g.ai << endl;
 }
 
-inline void clearScreen()
-{
-	system("cls");
-}
-
 Progress checkWin(Game& g)
 {
 	for (size_t y = 0; y < g.size; y++)
@@ -176,7 +171,7 @@ Coordinates getUserCoord(Game& g)
 	return coord;
 }
 
-Coordinates getAICoord(Game& g)
+Coordinates checkAIWinCoord(Game& g)
 {
 	for (size_t y = 0; y < g.size; y++)
 	{
@@ -194,7 +189,10 @@ Coordinates getAICoord(Game& g)
 			}
 		}
 	}
+}
 
+Coordinates checkUserWinCoord(Game& g)
+{
 	for (size_t y = 0; y < g.size; y++)
 	{
 		for (size_t x = 0; x < g.size; x++)
@@ -211,7 +209,10 @@ Coordinates getAICoord(Game& g)
 			}
 		}
 	}
+}
 
+Coordinates simpleAITurn(Game& g)
+{
 	if (g.ptrField[1][1] == EMPTY)
 	{
 		return { 1, 1 };
@@ -248,4 +249,44 @@ Coordinates getAICoord(Game& g)
 	{
 		return { 1, 2 };
 	}
+}
+
+Coordinates getAICoord(Game& g, int diff)
+{
+	Coordinates coord = { 0 };
+	if (diff == 1)
+		return simpleAITurn(g);
+	if (diff == 2)
+	{
+		coord = checkAIWinCoord(g);
+		if (coord.x < g.size && coord.y < g.size)
+		{
+			return coord;
+		}
+		else
+		{
+			return simpleAITurn(g);
+		}
+	}
+	if (diff == 3)
+	{
+		coord = checkAIWinCoord(g);
+		if (coord.x < g.size && coord.y < g.size)
+		{
+			return coord;
+		}
+		else
+		{
+			coord = checkUserWinCoord(g);
+			if (coord.x < g.size && coord.y < g.size)
+			{
+				return coord;
+			}
+			else
+			{
+				return simpleAITurn(g);
+			}
+		}
+	}
+
 }

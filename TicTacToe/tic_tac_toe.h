@@ -37,10 +37,14 @@ void deInitGame(Game& g);
 
 void crtField(Game& g);
 
-void clearScreen();
-
 Progress checkWin(Game& g);
 
 Coordinates getUserCoord(Game& g);
 
-Coordinates getAICoord(Game& g);
+Coordinates checkAIWinCoord(Game& g);
+
+Coordinates checkUserWinCoord(Game& g);
+
+Coordinates simpleAITurn(Game& g);
+
+Coordinates getAICoord(Game& g, int diff);

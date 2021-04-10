@@ -6,6 +6,11 @@
 
 using namespace std;
 
+inline void clearScreen()
+{
+	system("cls");
+}
+
 int main()
 {
 	Game gm;
@@ -13,6 +18,11 @@ int main()
 
 	clearScreen();
 	crtField(gm);
+
+	int difficulty;
+	cout << "Hello! Welcome to the TicTacToe game!" << endl << "Please, enter the difficulty level (1 = Easy, 2 = Normal, 3 = Hard): ";
+	cin >> difficulty;
+
 
 	while (gm.progress == IN_PROGRESS)
 	{
@@ -23,7 +33,7 @@ int main()
 		}
 		else
 		{
-			Coordinates coord = getAICoord(gm);
+			Coordinates coord = getAICoord(gm, difficulty);
 			gm.ptrField[coord.y][coord.x] = gm.ai;
 		}
 
